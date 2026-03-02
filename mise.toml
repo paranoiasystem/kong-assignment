@@ -1,0 +1,5 @@
+[tools]
+deck = "1.55.2"
+
+[env]
+DECK_KONNECT_CONTROL_PLANE_NAME = "localhost:8001"
