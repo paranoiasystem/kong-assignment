@@ -1,0 +1,75 @@
+services:
+  # kongair services
+  kongair-flights:
+    build:
+      context: KongAir/flight-data/flights
+      dockerfile: Dockerfile
+  kongair-customer:
+    build:
+      context: KongAir/sales/customer
+      dockerfile: Dockerfile
+  kongair-bookings:
+    build:
+      context: KongAir/sales/bookings
+      dockerfile: Dockerfile
+  kongair-routes:
+    build:
+      context: KongAir/flight-data/routes
+      dockerfile: Dockerfile
+  kongair-experience:
+    build:
+      context: KongAir/experience
+      dockerfile: Dockerfile
+
+  # postgresql database for kong gateway
+  postgres:
+    image: postgres:18.3
+    environment:
+      POSTGRES_USER: kong
+      POSTGRES_PASSWORD: kong
+      POSTGRES_DB: kong
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "kong"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  # kong gateway migrations
+  kong-migrations:
+    image: kong/kong-gateway
+    environment:
+      KONG_DATABASE: "postgres"
+      KONG_PG_HOST: "postgres"
+      KONG_PG_USER: "kong"
+      KONG_PG_PASSWORD: "kong"
+      KONG_PG_DATABASE: "kong"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: "kong migrations bootstrap"
+  
+  # kong gateway
+  kong-gateway:
+    image: kong/kong-gateway
+    environment:
+      KONG_DATABASE: "postgres"
+      KONG_PG_HOST: "postgres"
+      KONG_PG_USER: "kong"
+      KONG_PG_PASSWORD: "kong"
+      KONG_PG_DATABASE: "kong"
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
+    depends_on:
+      kong-migrations:
+        condition: service_completed_successfully
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+      - "8001:8001"
+      - "8444:8444"
+
+volumes:
+  postgres_data: {}
