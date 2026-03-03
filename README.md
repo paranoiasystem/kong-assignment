@@ -10,3 +10,20 @@
 > con 
 >
 > `ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-arm64 /tini`
+
+## 2. Service and routing model
+
+Genero i file di configurazione per Kong a partire dalle specifiche OpenAPI dei servizi.
+```bash
+deck file openapi2kong --spec KongAir/flight-data/flights/openapi.yaml --output-file kong/kongair-flights.yaml
+deck file openapi2kong --spec KongAir/sales/customer/openapi.yaml --output-file kong/kongair-customer.yaml
+deck file openapi2kong --spec KongAir/sales/bookings/openapi.yaml --output-file kong/kongair-bookings.yaml
+deck file openapi2kong --spec KongAir/flight-data/routes/openapi.yaml --output-file kong/kongair-routes.yaml
+```
+
+Bisogna modificare i file generati per aggiungere le informazioni di routing, in modificare l'host, il path di ogni servizio, il protocollo e le porte.
+
+Eseguo il comando per sincronizzare la configurazione con Kong:
+```bash
+deck gateway sync kong/*.yaml
+```
