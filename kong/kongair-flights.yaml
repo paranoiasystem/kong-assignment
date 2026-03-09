@@ -4,7 +4,11 @@ services:
   id: 0cef4d36-9c39-5ac2-9d9f-190d8ea8a252
   name: flights-service
   path: /
-  plugins: []
+  plugins:
+  - name: key-auth
+    config:
+      key_names:
+      - apikey
   port: 8080
   protocol: http
   routes:

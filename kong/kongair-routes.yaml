@@ -4,7 +4,11 @@ services:
   id: 5bbc0ad8-3b7c-5dfe-a676-b28f30523a6f
   name: routes-service
   path: /
-  plugins: []
+  plugins:
+  - name: key-auth
+    config:
+      key_names:
+      - apikey
   port: 8081
   protocol: http
   routes:

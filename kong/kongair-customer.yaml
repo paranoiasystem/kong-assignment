@@ -4,7 +4,11 @@ services:
   id: 690e812e-2873-566a-b02f-d03e0bf8ff69
   name: customer-information-service
   path: /
-  plugins: []
+  plugins:
+  - name: key-auth
+    config:
+      key_names:
+      - apikey
   port: 3000
   protocol: http
   routes:

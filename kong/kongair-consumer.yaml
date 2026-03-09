@@ -1,0 +1,5 @@
+_format_version: "3.0"
+consumers:
+- username: paranoia
+  keyauth_credentials:
+  - key: pr0v0L@

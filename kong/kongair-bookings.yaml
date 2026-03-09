@@ -4,7 +4,11 @@ services:
   id: 22e1521b-9b91-5d2f-917b-4463066f1aed
   name: bookings-service
   path: /
-  plugins: []
+  plugins:
+  - name: key-auth
+    config:
+      key_names:
+      - apikey
   port: 3000
   protocol: http
   routes:
