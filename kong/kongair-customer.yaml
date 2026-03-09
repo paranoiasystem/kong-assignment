@@ -3,7 +3,7 @@ services:
 - host: kongair-customer
   id: 690e812e-2873-566a-b02f-d03e0bf8ff69
   name: customer-information-service
-  path: /api/customer
+  path: /
   plugins: []
   port: 3000
   protocol: http
@@ -13,8 +13,12 @@ services:
     - GET
     name: customer-information-service_get-cust-info
     paths:
-    - ~/customer$
-    plugins: []
+    - ~/api/v1/customer$
+    plugins:
+    - name: request-transformer
+      config:
+        replace:
+          uri: /customer
     regex_priority: 200
     strip_path: false
     tags: []
@@ -23,8 +27,12 @@ services:
     - GET
     name: customer-information-service_health_get
     paths:
-    - ~/health$
-    plugins: []
+    - ~/api/v1/customer/health$
+    plugins:
+    - name: request-transformer
+      config:
+        replace:
+          uri: /health
     regex_priority: 200
     strip_path: false
     tags: []

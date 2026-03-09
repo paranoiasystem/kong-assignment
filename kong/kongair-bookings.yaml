@@ -3,7 +3,7 @@ services:
 - host: kongair-bookings
   id: 22e1521b-9b91-5d2f-917b-4463066f1aed
   name: bookings-service
-  path: /api/bookings
+  path: /
   plugins: []
   port: 3000
   protocol: http
@@ -13,8 +13,12 @@ services:
     - GET
     name: bookings-service_get-bookings
     paths:
-    - ~/bookings$
-    plugins: []
+    - ~/api/v1/bookings$
+    plugins:
+    - name: request-transformer
+      config:
+        replace:
+          uri: /bookings
     regex_priority: 200
     strip_path: false
     tags: []
@@ -23,8 +27,12 @@ services:
     - POST
     name: bookings-service_post-booking
     paths:
-    - ~/bookings$
-    plugins: []
+    - ~/api/v1/bookings$
+    plugins:
+    - name: request-transformer
+      config:
+        replace:
+          uri: /bookings
     regex_priority: 200
     strip_path: false
     tags: []
@@ -33,8 +41,12 @@ services:
     - GET
     name: bookings-service_health_get
     paths:
-    - ~/health$
-    plugins: []
+    - ~/api/v1/bookings/health$
+    plugins:
+    - name: request-transformer
+      config:
+        replace:
+          uri: /health
     regex_priority: 200
     strip_path: false
     tags: []

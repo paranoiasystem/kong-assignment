@@ -3,7 +3,7 @@ services:
 - host: kongair-flights
   id: 0cef4d36-9c39-5ac2-9d9f-190d8ea8a252
   name: flights-service
-  path: /api/flights
+  path: /
   plugins: []
   port: 8080
   protocol: http
@@ -13,8 +13,12 @@ services:
     - GET
     name: flights-service_get-flights
     paths:
-    - ~/flights$
-    plugins: []
+    - ~/api/v1/flights$
+    plugins:
+    - name: request-transformer
+      config:
+        replace:
+          uri: /flights
     regex_priority: 200
     strip_path: false
     tags: []
@@ -23,8 +27,12 @@ services:
     - GET
     name: flights-service_get-flight-by-number
     paths:
-    - ~/flights/(?<flightnumber>[^#?/]+)$
-    plugins: []
+    - ~/api/v1/flights/(?<flightnumber>[^#?/]+)$
+    plugins:
+    - name: request-transformer
+      config:
+        replace:
+          uri: /flights/$(uri_captures["flightnumber"])
     regex_priority: 100
     strip_path: false
     tags: []
@@ -33,8 +41,12 @@ services:
     - GET
     name: flights-service_get-flight-details
     paths:
-    - ~/flights/(?<flightnumber>[^#?/]+)/details$
-    plugins: []
+    - ~/api/v1/flights/(?<flightnumber>[^#?/]+)/details$
+    plugins:
+    - name: request-transformer
+      config:
+        replace:
+          uri: /flights/$(uri_captures["flightnumber"])/details
     regex_priority: 100
     strip_path: false
     tags: []
@@ -43,8 +55,12 @@ services:
     - GET
     name: flights-service_health_get
     paths:
-    - ~/health$
-    plugins: []
+    - ~/api/v1/flights/health$
+    plugins:
+    - name: request-transformer
+      config:
+        replace:
+          uri: /health
     regex_priority: 200
     strip_path: false
     tags: []

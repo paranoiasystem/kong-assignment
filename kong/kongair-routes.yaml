@@ -43,14 +43,10 @@ services:
     paths:
     - ~/api/v1/routes/(?<id>[^#?/]+)$
     plugins:
-    - name: pre-function
+    - name: request-transformer
       config:
-        access:
-        - |
-          local id = ngx.var.request_uri:match("/api/v1/routes/([^/?#]+)")
-          if id then
-            kong.service.request.set_path("/routes/" .. id)
-          end
+        replace:
+          uri: /routes/$(uri_captures["id"])
     regex_priority: 100
     strip_path: false
     tags: []
