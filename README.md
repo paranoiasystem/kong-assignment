@@ -27,3 +27,11 @@ Eseguo il comando per sincronizzare la configurazione con Kong:
 ```bash
 deck gateway sync kong/*.yaml
 ```
+
+## 6. kong dbless mode
+
+Per eseguire Kong in modalità dbless esporto la conf attuale così:
+
+```bash
+deck gateway dump -o kong_dbless.yaml
+``` 

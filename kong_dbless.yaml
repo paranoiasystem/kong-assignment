@@ -1,0 +1,914 @@
+_format_version: "3.0"
+consumers:
+- keyauth_credentials:
+  - key: pr0v0L@
+  username: paranoia
+services:
+- connect_timeout: 60000
+  enabled: true
+  host: kongair-bookings
+  name: bookings-service
+  path: /
+  plugins:
+  - config:
+      custom_fields_by_lua: null
+      path: /tmp/logs/file.log
+      reopen: false
+    enabled: true
+    name: file-log
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+  - config:
+      anonymous: null
+      hide_credentials: false
+      identity_realms:
+      - id: null
+        region: null
+        scope: cp
+      key_in_body: false
+      key_in_header: true
+      key_in_query: true
+      key_names:
+      - apikey
+      realm: null
+      run_on_preflight: true
+    enabled: true
+    name: key-auth
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+    - ws
+    - wss
+  - config:
+      day: null
+      error_code: 429
+      error_message: API rate limit exceeded
+      fault_tolerant: true
+      header_name: null
+      hide_client_headers: false
+      hour: null
+      limit_by: consumer
+      minute: 5
+      month: null
+      path: null
+      policy: local
+      redis:
+        cloud_authentication: null
+        database: 0
+        host: null
+        password: null
+        port: 6379
+        server_name: null
+        ssl: false
+        ssl_verify: false
+        timeout: 2000
+        username: null
+      redis_database: 0
+      redis_host: null
+      redis_password: null
+      redis_port: 6379
+      redis_server_name: null
+      redis_ssl: false
+      redis_ssl_verify: false
+      redis_timeout: 2000
+      redis_username: null
+      second: null
+      sync_rate: -1
+      year: null
+    enabled: true
+    name: rate-limiting
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+  port: 3000
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    methods:
+    - GET
+    name: bookings-service_get-bookings
+    path_handling: v0
+    paths:
+    - ~/api/v1/bookings$
+    plugins:
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: /bookings
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 200
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  - https_redirect_status_code: 426
+    methods:
+    - GET
+    name: bookings-service_health_get
+    path_handling: v0
+    paths:
+    - ~/api/v1/bookings/health$
+    plugins:
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: /health
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 200
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  - https_redirect_status_code: 426
+    methods:
+    - POST
+    name: bookings-service_post-booking
+    path_handling: v0
+    paths:
+    - ~/api/v1/bookings$
+    plugins:
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: /bookings
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 200
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: kongair-customer
+  name: customer-information-service
+  path: /
+  plugins:
+  - config:
+      custom_fields_by_lua: null
+      path: /tmp/logs/file.log
+      reopen: false
+    enabled: true
+    name: file-log
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+  - config:
+      anonymous: null
+      hide_credentials: false
+      identity_realms:
+      - id: null
+        region: null
+        scope: cp
+      key_in_body: false
+      key_in_header: true
+      key_in_query: true
+      key_names:
+      - apikey
+      realm: null
+      run_on_preflight: true
+    enabled: true
+    name: key-auth
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+    - ws
+    - wss
+  - config:
+      day: null
+      error_code: 429
+      error_message: API rate limit exceeded
+      fault_tolerant: true
+      header_name: null
+      hide_client_headers: false
+      hour: null
+      limit_by: consumer
+      minute: 5
+      month: null
+      path: null
+      policy: local
+      redis:
+        cloud_authentication: null
+        database: 0
+        host: null
+        password: null
+        port: 6379
+        server_name: null
+        ssl: false
+        ssl_verify: false
+        timeout: 2000
+        username: null
+      redis_database: 0
+      redis_host: null
+      redis_password: null
+      redis_port: 6379
+      redis_server_name: null
+      redis_ssl: false
+      redis_ssl_verify: false
+      redis_timeout: 2000
+      redis_username: null
+      second: null
+      sync_rate: -1
+      year: null
+    enabled: true
+    name: rate-limiting
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+  port: 3000
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    methods:
+    - GET
+    name: customer-information-service_get-cust-info
+    path_handling: v0
+    paths:
+    - ~/api/v1/customer$
+    plugins:
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: /customer
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 200
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  - https_redirect_status_code: 426
+    methods:
+    - GET
+    name: customer-information-service_health_get
+    path_handling: v0
+    paths:
+    - ~/api/v1/customer/health$
+    plugins:
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: /health
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 200
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: kongair-flights
+  name: flights-service
+  path: /
+  plugins:
+  - config:
+      custom_fields_by_lua: null
+      path: /tmp/logs/file.log
+      reopen: false
+    enabled: true
+    name: file-log
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+  - config:
+      anonymous: null
+      hide_credentials: false
+      identity_realms:
+      - id: null
+        region: null
+        scope: cp
+      key_in_body: false
+      key_in_header: true
+      key_in_query: true
+      key_names:
+      - apikey
+      realm: null
+      run_on_preflight: true
+    enabled: true
+    name: key-auth
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+    - ws
+    - wss
+  - config:
+      day: null
+      error_code: 429
+      error_message: API rate limit exceeded
+      fault_tolerant: true
+      header_name: null
+      hide_client_headers: false
+      hour: null
+      limit_by: consumer
+      minute: 5
+      month: null
+      path: null
+      policy: local
+      redis:
+        cloud_authentication: null
+        database: 0
+        host: null
+        password: null
+        port: 6379
+        server_name: null
+        ssl: false
+        ssl_verify: false
+        timeout: 2000
+        username: null
+      redis_database: 0
+      redis_host: null
+      redis_password: null
+      redis_port: 6379
+      redis_server_name: null
+      redis_ssl: false
+      redis_ssl_verify: false
+      redis_timeout: 2000
+      redis_username: null
+      second: null
+      sync_rate: -1
+      year: null
+    enabled: true
+    name: rate-limiting
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+  port: 8080
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    methods:
+    - GET
+    name: flights-service_get-flight-by-number
+    path_handling: v0
+    paths:
+    - ~/api/v1/flights/(?<flightnumber>[^#?/]+)$
+    plugins:
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: /flights/$(uri_captures["flightnumber"])
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 100
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  - https_redirect_status_code: 426
+    methods:
+    - GET
+    name: flights-service_get-flight-details
+    path_handling: v0
+    paths:
+    - ~/api/v1/flights/(?<flightnumber>[^#?/]+)/details$
+    plugins:
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: /flights/$(uri_captures["flightnumber"])/details
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 100
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  - https_redirect_status_code: 426
+    methods:
+    - GET
+    name: flights-service_get-flights
+    path_handling: v0
+    paths:
+    - ~/api/v1/flights$
+    plugins:
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: /flights
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 200
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  - https_redirect_status_code: 426
+    methods:
+    - GET
+    name: flights-service_health_get
+    path_handling: v0
+    paths:
+    - ~/api/v1/flights/health$
+    plugins:
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: /health
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 200
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: kongair-routes
+  name: routes-service
+  path: /
+  plugins:
+  - config:
+      custom_fields_by_lua: null
+      path: /tmp/logs/file.log
+      reopen: false
+    enabled: true
+    name: file-log
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+  - config:
+      anonymous: null
+      hide_credentials: false
+      identity_realms:
+      - id: null
+        region: null
+        scope: cp
+      key_in_body: false
+      key_in_header: true
+      key_in_query: true
+      key_names:
+      - apikey
+      realm: null
+      run_on_preflight: true
+    enabled: true
+    name: key-auth
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+    - ws
+    - wss
+  - config:
+      day: null
+      error_code: 429
+      error_message: API rate limit exceeded
+      fault_tolerant: true
+      header_name: null
+      hide_client_headers: false
+      hour: null
+      limit_by: consumer
+      minute: 5
+      month: null
+      path: null
+      policy: local
+      redis:
+        cloud_authentication: null
+        database: 0
+        host: null
+        password: null
+        port: 6379
+        server_name: null
+        ssl: false
+        ssl_verify: false
+        timeout: 2000
+        username: null
+      redis_database: 0
+      redis_host: null
+      redis_password: null
+      redis_port: 6379
+      redis_server_name: null
+      redis_ssl: false
+      redis_ssl_verify: false
+      redis_timeout: 2000
+      redis_username: null
+      second: null
+      sync_rate: -1
+      year: null
+    enabled: true
+    name: rate-limiting
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+  port: 8081
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    methods:
+    - GET
+    name: routes-service_get-route
+    path_handling: v0
+    paths:
+    - ~/api/v1/routes/(?<id>[^#?/]+)$
+    plugins:
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: /routes/$(uri_captures["id"])
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 100
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  - https_redirect_status_code: 426
+    methods:
+    - GET
+    name: routes-service_get-routes
+    path_handling: v0
+    paths:
+    - ~/api/v1/routes$
+    plugins:
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: /routes
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 200
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  - https_redirect_status_code: 426
+    methods:
+    - GET
+    name: routes-service_health_get
+    path_handling: v0
+    paths:
+    - ~/api/v1/routes/health$
+    plugins:
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: /health
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 200
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+  write_timeout: 60000
