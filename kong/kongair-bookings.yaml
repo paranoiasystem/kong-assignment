@@ -13,6 +13,9 @@ services:
     config:
       minute: 5
       policy: local
+  - name: file-log
+    config:
+      path: "/tmp/logs/file.log"
   port: 3000
   protocol: http
   routes:

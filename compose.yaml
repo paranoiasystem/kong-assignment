@@ -66,6 +66,8 @@ services:
     depends_on:
       kong-migrations:
         condition: service_completed_successfully
+    volumes:
+      - ./kong-logs:/tmp/logs
     ports:
       - "8000:8000"
       - "8443:8443"
