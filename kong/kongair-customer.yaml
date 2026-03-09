@@ -9,6 +9,10 @@ services:
     config:
       key_names:
       - apikey
+  - name: rate-limiting
+    config:
+      minute: 5
+      policy: local
   port: 3000
   protocol: http
   routes:
